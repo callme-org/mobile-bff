@@ -9,7 +9,7 @@ import io.ktor.http.*
 class AuthRepositoryImpl(private val client: HttpClient) : AuthRepository {
 
     override suspend fun authenticateRequest(headers: Headers): HttpResponse =
-        client.request("http://callme-auth:8080/auth/authenticate") {
+        client.request("http://callme-auth:8080/open/auth/authenticate") {
             this.headers.appendAll(headers)
         }
 }
