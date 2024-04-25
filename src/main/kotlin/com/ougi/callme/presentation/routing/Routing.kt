@@ -13,7 +13,9 @@ import org.koin.ktor.ext.inject
 
 fun Application.configureRouting() =
     routing {
-        configureUserRouting()
+        route("/m") {
+            // TODO routing here
+        }
     }
 
 fun Route.proceedRoute(targetServiceName: String) {
@@ -22,7 +24,7 @@ fun Route.proceedRoute(targetServiceName: String) {
     handle {
         when (val response = authRequestUseCase.authenticateRequest(call.request.headers)) {
             AuthResponse.Authenticated ->
-                client.request("http://$targetServiceName:8081/${call.request.uri}") {
+                client.request("http://$targetServiceName:8080/${call.request.uri}") {
                     method = call.request.httpMethod
                     headers.appendAll(call.request.headers)
                     setBody(call.receiveText())
@@ -33,5 +35,4 @@ fun Route.proceedRoute(targetServiceName: String) {
         }
 
     }
-
 }
